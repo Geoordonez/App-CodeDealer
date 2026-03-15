@@ -1,7 +1,6 @@
 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
+
 # CODE DEALER
 
 ### 👥 Autores
@@ -19,4 +18,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ###  MOCKUP
 * **DISEÑO FIGMA** https://www.figma.com/design/HuyZZyUD0sa8zuIJ5GoFSg/PROYECTO?node-id=0-1&t=qQcjW8OUDv4vVxKK-1
 * **VIDEO** https://youtu.be/BMOcblnmnNU
->>>>>>> dfcb8f7a176f42b556f06b5c1ada03adc15c7c3f
+
