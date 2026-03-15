@@ -4,7 +4,7 @@ export default function RegisterPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#E5E5E5] p-6 relative">
       
-      {/* Botón de regreso (Flecha) en la esquina superior izquierda */}
+      {/* Botón de regreso (Flecha) - Vuelve al Login */}
       <Link 
         href="/" 
         className="absolute top-6 left-6 md:top-10 md:left-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-800 font-bold text-xl hover:bg-gray-100 transition-colors"
@@ -62,11 +62,13 @@ export default function RegisterPage() {
               </label>
             </div>
 
-            {/* Botón Register Único */}
+            {/* Botón Register con LINK al Dashboard */}
             <div className="pt-6">
-              <button className="w-full bg-[#0A5EB0] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-colors">
-                Register
-              </button>
+              <Link href="/Dashboard">
+                <button className="w-full bg-[#0A5EB0] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-colors">
+                  Register
+                </button>
+              </Link>
             </div>
 
           </div>

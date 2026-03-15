@@ -1,8 +1,10 @@
+import Link from 'next/link';
+
 export default function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#E5E5E5] p-6">
       
-      {/* Contenedor principal*/}
+      {/* Contenedor principal */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20">
         
         {/* Logo Gigante C */}
@@ -40,15 +42,23 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Botones Sign In y Register */}
-            <div className="space-y-4 pt-2">
-              <button className="w-full bg-[#0A5EB0] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-colors">
-                Sign In
-              </button>
+            {/* Botones Sign In y Register con Navegación */}
+            <div className="space-y-4 pt-2 flex flex-col">
               
-              <button className="w-full bg-[#0A5EB0] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-colors">
-                Register
-              </button>
+              {/* Link al Dashboard */}
+              <Link href="/Dashboard" className="w-full">
+                <button className="w-full bg-[#0A5EB0] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-colors">
+                  Sign In
+                </button>
+              </Link>
+              
+              {/* Link al Registro */}
+              <Link href="/register" className="w-full">
+                <button className="w-full bg-[#0A5EB0] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-colors">
+                  Register
+                </button>
+              </Link>
+
             </div>
 
             {/* Enlace Olvidé mi contraseña */}
