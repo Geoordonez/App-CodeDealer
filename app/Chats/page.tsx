@@ -18,7 +18,7 @@ export default function ChatsPage() {
         {/* Lista de Chats */}
         <div className="flex flex-col gap-3 overflow-y-auto pr-2">
           {usuarios.map((name, i) => (
-            <Link href="/chat" key={i} className="w-full bg-gradient-to-r from-[#4facfe] to-[#00f2fe] p-3 rounded-full flex items-center gap-4 hover:scale-[1.01] transition-transform shadow-sm">
+            <Link href="/Chat" key={i} className="w-full bg-gradient-to-r from-[#4facfe] to-[#00f2fe] p-3 rounded-full flex items-center gap-4 hover:scale-[1.01] transition-transform shadow-sm">
               <div className="w-10 h-10 bg-white/40 rounded-full overflow-hidden">
                 <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i+20}`} alt="User" />
               </div>
