@@ -21,5 +21,5 @@
 
 
 ## APP ANDROID 
-REPO: https://github.com/Geoordonez/CODEDEALER-ANDROID.git
+* REPO: https://github.com/Geoordonez/CODEDEALER-ANDROID.git
 
