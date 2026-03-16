@@ -20,6 +20,11 @@
 * **VIDEO** https://youtu.be/BMOcblnmnNU
 
 
-## APP ANDROID 
+## STATIC VERSION VIDEO
+* https://www.youtube.com/watch?v=DW9hKD5cTZY
+
+## STATIC VERSION ANDROID 
 * REPO: https://github.com/Geoordonez/CODEDEALER-ANDROID.git
+
+
 
