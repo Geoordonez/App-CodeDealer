@@ -26,5 +26,9 @@
 ## STATIC VERSION ANDROID 
 * REPO: https://github.com/Geoordonez/CODEDEALER-ANDROID.git
 
+  
+## PDF Progress Report
+https://github.com/AlanMartinezzzz/progress-report
+
 
 
