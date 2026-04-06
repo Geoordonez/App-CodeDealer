@@ -28,7 +28,7 @@
 
   
 ## PDF Progress Report
-https://github.com/AlanMartinezzzz/progress-report
+* https://github.com/AlanMartinezzzz/progress-report
 
 
 
