@@ -33,6 +33,9 @@
 ## Functional Integration Video explicatorio
 * **Video:** https://www.youtube.com/watch?v=tBSZHAQV5dg
 
+## Pre delivery (beta)
+* **Video:** https://www.youtube.com/watch?v=Bvn8UCbkJ68
+
 
 
 
