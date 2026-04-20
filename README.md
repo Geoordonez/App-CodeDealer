@@ -30,5 +30,9 @@
 ## PDF Progress Report
 * https://github.com/AlanMartinezzzz/progress-report
 
+## Functional Integration Video explicatorio
+* **Video:** https://www.youtube.com/watch?v=tBSZHAQV5dg
+
+
 
 
