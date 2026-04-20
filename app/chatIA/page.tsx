@@ -1,6 +1,8 @@
 "use client";
 import { useState } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
 import Link from 'next/link';
 
 export default function SingleChatPage() {
@@ -14,30 +16,61 @@ export default function SingleChatPage() {
   const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY!);
 
   const handleSend = async () => {
-    if (!input.trim() || loading) return;
+  if (!input.trim() || loading) return;
 
-    const userText = input;
-    const newMessages = [...messages, { role: 'user', text: userText }];
-    setMessages(newMessages);
-    setInput("");
-    setLoading(true);
+  const userText = input;
+  const newMessages = [...messages, { role: 'user', text: userText }];
+  setMessages(newMessages);
+  setInput("");
+  setLoading(true);
 
-    try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-      
-      // Enviamos el mensaje de verdad
-      const result = await model.generateContent(userText);
-      const response = await result.response;
-      const text = response.text();
-      
-      setMessages(prev => [...prev, { role: 'ai', text: text }]);
-    } catch (error) {
-      console.error("Error detallado:", error);
-      setMessages(prev => [...prev, { role: 'ai', text: "Error de conexión real con Gemini." }]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    // 1. IMPORTANTE: Verificamos que traiga los datos de 'proposals'
+    const querySnapshot = await getDocs(collection(db, "proposals"));
+    const propuestasDB = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    // Imprime esto en tu consola (F12) para que tú mismo veas si llegan los datos
+    console.log("Datos cargados de Firestore:", propuestasDB);
+
+    const contextoPropuestas = JSON.stringify(propuestasDB);
+
+    // 2. CONFIGURACIÓN DEL MODELO
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      systemInstruction: `
+        Eres 'CodeDealer AI'. Tu única fuente de verdad es esta lista de propuestas: ${contextoPropuestas}.
+        Eres 'CodeDealer AI', un asistente virtual experto en programación y desarrollo de software.
+                Tus respuestas deben ser amables, directas y en español.
+                Si te preguntan cosas que no tienen nada que ver con programación o tecnología, 
+                responde cortésmente que tu especialidad es el código y no puedes ayudar con otros temas.
+                adicionalmente tu trabajo principal, las parsonas o programadores van a intentar 
+                buscar propuestas, tu vas a ser la herramienta que acturara como un buscador entre las propuetas
+                es decir, si yo te digo que quiero programadores que sepa python, tu buscaras las propuestas 
+                existentes y me las recomendaras.
+        REGLAS CRÍTICAS:
+        1. Si el usuario pregunta qué propuestas hay, menciona SOLO lo que está en la lista (ejemplo: "codigo python").
+        2. Si la lista está vacía o no hay nada que coincida, di: "No tengo programadores con ese perfil en mi base de datos actual".
+        3. PROHIBIDO inventar nombres de tecnologías o perfiles que no estén en el texto proporcionado.
+      `
+    });
+    
+    // 3. ENVIAR EL MENSAJE (Sin historial para probar que lea bien el contexto primero)
+    // A veces el historial viejo confunde a la IA, probemos enviando el contexto fresco
+    const result = await model.generateContent([userText]); 
+    const response = await result.response;
+    const text = response.text();
+    
+    setMessages(prev => [...prev, { role: 'ai', text: text }]);
+  } catch (error) {
+    console.error("Error detallado:", error);
+    setMessages(prev => [...prev, { role: 'ai', text: "Hubo un error al leer la base de datos." }]);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#E5E5E5] p-6 relative">

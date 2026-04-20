@@ -1,29 +1,69 @@
+"use client";
+import { useState } from 'react';
+import { db } from '../../firebase'; // Tu archivo de configuración
+import { collection, addDoc } from 'firebase/firestore';
 import Link from 'next/link';
 
 export default function PublicarPage() {
-  return (
-    <main className="flex min-h-screen items-center justify-center bg-[#E5E5E5] p-6 relative">
-      <Link href="/Dashboard" className="absolute top-6 left-6 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-800 font-bold text-xl">&lt;</Link>
+  const [titulo, setTitulo] = useState("");
+  const [tecnologias, setTecnologias] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [loading, setLoading] = useState(false);
 
-      <div className="w-full max-w-4xl h-[600px] bg-gradient-to-b from-[#4facfe] to-[#00f2fe] rounded-[2.5rem] shadow-xl flex flex-col items-center justify-center p-12 relative">
-        <div className="w-full max-w-2xl text-center space-y-12">
-          {/* Input de Título estilo Mockup */}
+  const handlePublicar = async () => {
+    if (!titulo || !tecnologias || !descripcion) return alert("Llena todos los campos");
+    
+    setLoading(true);
+    try {
+      // Esta línea es la magia: crea un documento nuevo automáticamente
+      await addDoc(collection(db, "proposals"), {
+        titulo: titulo,
+        tecnologias: tecnologias,
+        descripcion: descripcion,
+        fecha: new Date().toISOString()
+      });
+
+      alert("¡Propuesta publicada con éxito!");
+      setTitulo(""); setTecnologias(""); setDescripcion("");
+    } catch (error) {
+      console.error("Error al publicar:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-gray-100 p-8 flex flex-col items-center">
+      <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md border-t-8 border-[#0A5EB0]">
+        <h1 className="text-2xl font-bold text-[#0A5EB0] mb-6">Publicar mi Perfil</h1>
+        
+        <div className="space-y-4">
           <input 
-            type="text" 
-            placeholder="EDITAR TITULO" 
-            className="w-full bg-transparent border-none text-center text-3xl md:text-5xl font-extrabold text-white placeholder:text-white/70 focus:outline-none uppercase tracking-widest"
+            placeholder="Título (Ej: Dev Python)" 
+            className="w-full p-3 border rounded-lg"
+            value={titulo} onChange={(e) => setTitulo(e.target.value)}
+          />
+          <input 
+            placeholder="Tecnologías (Ej: React, Node)" 
+            className="w-full p-3 border rounded-lg"
+            value={tecnologias} onChange={(e) => setTecnologias(e.target.value)}
+          />
+          <textarea 
+            placeholder="Descripción corta de tu trabajo" 
+            className="w-full p-3 border rounded-lg h-32"
+            value={descripcion} onChange={(e) => setDescripcion(e.target.value)}
           />
           
-          {/* Botón Central */}
-          <button className="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-12 rounded-full border-2 border-white transition-all text-xl tracking-widest">
-            EDITAR
+          <button 
+            onClick={handlePublicar}
+            disabled={loading}
+            className="w-full bg-[#0A5EB0] text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition"
+          >
+            {loading ? "Publicando..." : "Subir Propuesta"}
           </button>
         </div>
-
-        {/* Botón Publicar pequeño abajo a la derecha */}
-        <button className="absolute bottom-8 right-10 bg-[#0A5EB0] text-white text-[10px] px-4 py-1 rounded-sm font-bold hover:bg-blue-900 transition-colors">
-          PUBLICAR
-        </button>
+        
+        <Link href="/Dashboard" className="block text-center mt-4 text-gray-500 text-sm underline">Volver al inicio</Link>
       </div>
     </main>
   );
