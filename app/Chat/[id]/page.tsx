@@ -9,8 +9,11 @@ import {
   orderBy, 
   onSnapshot, 
   serverTimestamp, 
+  doc,
+  getDoc,
   where,
   or
+
 } from "firebase/firestore";
 import { auth, db } from '@/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -20,7 +23,34 @@ export default function SingleChatPage() {
   const [nuevoMensaje, setNuevoMensaje] = useState("");
   const [mensajes, setMensajes] = useState<any[]>([]);
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [nombreDestinatario, setNombreDestinatario] = useState("Cargando...");
   const scrollRef = useRef<HTMLDivElement>(null);
+
+
+  // --- Buscar el nombre del usuario con el que chateas ---
+  useEffect(() => {
+    const buscarNombre = async () => {
+      if (!id) return;
+      try {
+        // Apuntamos al documento de este ID en la colección "users"
+        const userRef = doc(db, "users", id as string);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          // Si lo encontramos, guardamos su nombre
+          setNombreDestinatario(userSnap.data().name || "Usuario Desconocido");
+        } else {
+          setNombreDestinatario("Usuario no encontrado");
+        }
+      } catch (error) {
+        console.error("Error obteniendo el nombre:", error);
+        setNombreDestinatario("Error");
+      }
+    };
+
+    buscarNombre();
+  }, [id]);
+
 
   // 1. Verificar Usuario
   useEffect(() => {
@@ -92,7 +122,7 @@ export default function SingleChatPage() {
           </div>
           <div>
             <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Chateando con</p>
-            <p className="text-sm font-bold text-gray-700">{id}</p>
+            <p className="text-sm font-bold text-gray-700">{nombreDestinatario}</p>
           </div>
         </div>
 
