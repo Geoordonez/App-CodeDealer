@@ -39,6 +39,7 @@
 ## Final project 
 * **Video:** https://www.youtube.com/watch?v=Bvn8UCbkJ68](https://youtu.be/BOFVLuW2R98)
 * **PDF:** [Documentacion_Proyecto_Final_v2.pdf](https://github.com/user-attachments/files/27329737/Documentacion_Proyecto_Final_v2.pdf)
+* **Presentación:** https://docs.google.com/presentation/d/1r88rLYcp4I0Wo05Yh-H4RPoor7BlucozRe1wwTpXH2g/edit?slide=id.p1#slide=id.p1
 
 
 
