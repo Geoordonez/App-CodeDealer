@@ -36,6 +36,10 @@
 ## Pre delivery (beta)
 * **Video:** https://www.youtube.com/watch?v=Bvn8UCbkJ68
 
+## Final project 
+* **Video:** https://www.youtube.com/watch?v=Bvn8UCbkJ68](https://youtu.be/BOFVLuW2R98)
+* **PDF:** [Documentacion_Proyecto_Final_v2.pdf](https://github.com/user-attachments/files/27329737/Documentacion_Proyecto_Final_v2.pdf)
+
 
 
 
